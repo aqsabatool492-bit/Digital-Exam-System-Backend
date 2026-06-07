@@ -1,21 +1,16 @@
-// ============================================
-// db/database.js — PostgreSQL Connection
-// ============================================
-
 require("dotenv").config();
 const { Pool } = require("pg");
 
+console.log("DATABASE_URL:", process.env.DATABASE_URL ? "SET" : "NOT SET");
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes("railway")
-    ? { rejectUnauthorized: false }
-    : false
+  ssl: { rejectUnauthorized: false }
 });
 
-// Test connection
 pool.connect((err, client, release) => {
   if (err) {
-    console.error("❌ Database connection error:", err.message);
+    console.error("❌ Database connection error:", err.message, err.stack);
   } else {
     console.log("✅ PostgreSQL connected successfully!");
     release();
