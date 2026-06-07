@@ -14,6 +14,7 @@ const adminRoutes   = require("./routes/admin");
 const teacherRoutes = require("./routes/teacher");
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({ origin: "*", methods: ["GET","POST","PUT","PATCH","DELETE"], allowedHeaders: ["Content-Type","Authorization"] }));
