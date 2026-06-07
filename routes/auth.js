@@ -11,7 +11,7 @@ router.post("/login", async (req, res) => {
   if (!username || !password)
     return res.status(400).json({ success: false, message: "Username and password are required." });
   try {
-    const result = await pool.query("SELECT * FROM users WHERE username = $1 AND is_active = 1", [username.trim()]);
+    const result = await pool.query("SELECT * FROM users WHERE username = $1 AND is_active = true", [username.trim()]);
     const user = result.rows[0];
     if (!user || !bcrypt.compareSync(password, user.password))
       return res.status(401).json({ success: false, message: "Invalid credentials." });
